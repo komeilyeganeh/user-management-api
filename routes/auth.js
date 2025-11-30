@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 
 // ==== register ====
 router.post("/register", async (req, res) => {
@@ -98,6 +99,24 @@ router.post("/login", async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Login error",
+    });
+  }
+});
+
+// ==== get current user ====
+router.get("/me", auth, async (req, res) => {
+  try {
+    const userEmail = req.user.email;
+    const user = await User.findOne({ userEmail });
+    res.status(200).json({
+      success: true,
+      message: "User acquisition was successful.",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error retrieving information",
     });
   }
 });
