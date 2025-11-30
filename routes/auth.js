@@ -14,6 +14,12 @@ router.post("/register", async (req, res) => {
         message: "name, email and password are required.",
       });
     }
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters long.",
+      });
+    }
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({
@@ -63,6 +69,12 @@ router.post("/login", async (req, res) => {
         message: "email and password are required.",
       });
     }
+    if (password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters long.",
+      });
+    }
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -95,7 +107,7 @@ router.post("/login", async (req, res) => {
         token,
       },
     });
-  } catch (error) {
+  } catch (error) {    
     res.status(500).json({
       success: false,
       message: "Login error",
