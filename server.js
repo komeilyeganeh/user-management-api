@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const authRouter = require("./routes/auth")
 
 
 // ==== create express app ====
@@ -9,6 +10,10 @@ const app = express();
 
 // ==== base middleware ====
 app.use(cors());
+app.use(express.json());
+
+// ==== routes ====
+app.use("/api/auth", authRouter);
 
 // ==== connect to DB ====
 const connectDB = async () => {
