@@ -2,6 +2,13 @@
 
 A complete RESTful API for user management with JWT authentication.
 
+## 🚀 Quick Start
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Create `.env` file and set environment variables
+4. Start server: `npm run dev`
+
 ## 🚀 Features
 - User Registration & Login
 - JWT Authentication
